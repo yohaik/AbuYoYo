@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "220819827265",
+    "firebase_url": "https://abuyoyo-22165.firebaseio.com",
+    "project_id": "abuyoyo-22165",
+    "storage_bucket": "abuyoyo-22165.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220819827265:android:924e356a26e68692",
+        "android_client_info": {
+          "package_name": "com.HaHa.abuyoyo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220819827265-6r53dqqohhej534gvofmpeo7vi0gj8t2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPsMyRmanMjwndkv47SFv_qgQ-t-xFDzA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
