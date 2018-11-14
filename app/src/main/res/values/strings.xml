@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AbuYoYo</string>
+    <string name="load_me_up">Load me up!</string>
+    <string name="email_hint">Email</string>
+    <string name="phone_number_hint">Phone Number</string>
+    <string name="full_name_hint">Full Name</string>
 </resources>
