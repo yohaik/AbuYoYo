@@ -89,7 +89,7 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Destination"
+            android:hint="@string/destination_hint"
             android:textStyle="bold" />
     </android.support.design.widget.TextInputLayout>
 
@@ -119,11 +119,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:contentDescription="@string/abuyoyo_logo_Description"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logoAbuTrans" />
+        app:srcCompat="@drawable/logoabutrans" />
 
 </android.support.constraint.ConstraintLayout>
