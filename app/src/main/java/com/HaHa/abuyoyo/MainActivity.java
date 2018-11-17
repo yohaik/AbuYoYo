@@ -27,27 +27,26 @@ public class MainActivity extends AppCompatActivity {
     private EditText mEmail;
     private EditText mDestination;
     private PlaceAutocompleteFragment tripDest;
+    private Button mLoadMeButton;
 
     Location locationDest = new Location("Dest");//= new Location(from);
 
     // Acquire a reference to the system Location Manager
     LocationManager locationManager;
 
-// Define a listener that responds to location updates
+    // Define a listener that responds to location updates
     LocationListener locationListener;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mFullName = findViewById(R.id.fulllNameEditText);
-        mPhoneNumber = findViewById(R.id.phoneNumberEditText);
-        mEmail = findViewById(R.id.emailEditText);
+    private void fineViews(){
+        mFullName = (EditText) findViewById(R.id.fulllNameEditText);
+        mPhoneNumber = (EditText) findViewById(R.id.phoneNumberEditText);
+        mEmail = (EditText) findViewById(R.id.emailEditText);
         tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.destinationEditText);
-        tripDest.setHint(getString(R.string.trip_destination_hint));
-        Button mLoadMeButton = findViewById(R.id.loadMeonButton);
+        mLoadMeButton = (Button) findViewById(R.id.loadMeonButton);
 
+        tripDest.setHint(getString(R.string.trip_destination_hint));
+
+        //srt listener autocomplet
         tripDest.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
@@ -69,17 +68,24 @@ public class MainActivity extends AppCompatActivity {
                 String phone = mPhoneNumber.getText().toString();
                 String email = mEmail.getText().toString();
                 String destination = mDestination.getText().toString();
-
-
             }
         });
 
-        mFullName.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                return false;
-            }
-        });
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        fineViews();
+
+     //   mFullName.setOnKeyListener(new View.OnKeyListener() {
+     //       @Override
+     //       public boolean onKey(View view, int i, KeyEvent keyEvent) {
+     //           return false;
+     //       }
+     //   });
     }
 
 }
