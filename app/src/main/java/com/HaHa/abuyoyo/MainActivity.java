@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
      //           String fullName = mFullName.getText().toString();
      //           String phone = mPhoneNumber.getText().toString();
      //           String email = mEmail.getText().toString();
-                String destination = mDestination.getText().toString();
+     //           String destination = mDestination.getText().toString();
             }
         });
 
