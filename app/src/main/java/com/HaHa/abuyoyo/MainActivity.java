@@ -1,6 +1,7 @@
 package com.HaHa.abuyoyo;
 
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -22,9 +23,9 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 public class MainActivity extends AppCompatActivity {
 
     // Object on main activity screen
-    private EditText mFullName;
-    private EditText mPhoneNumber;
-    private EditText mEmail;
+    private TextInputLayout mFullName;
+    private TextInputLayout mPhoneNumber;
+    private TextInputLayout mEmail;
     private EditText mDestination;
     private PlaceAutocompleteFragment tripDest;
     private Button mLoadMeButton;
@@ -38,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
     LocationListener locationListener;
 
     private void fineViews(){
-        mFullName = (EditText) findViewById(R.id.fulllNameEditText);
-        mPhoneNumber = (EditText) findViewById(R.id.phoneNumberEditText);
-        mEmail = (EditText) findViewById(R.id.emailEditText);
-        tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.destinationEditText);
+        mFullName = (TextInputLayout) findViewById(R.id.fulllNameEditText);
+        mPhoneNumber = (TextInputLayout) findViewById(R.id.phoneNumberEditText);
+        mEmail = (TextInputLayout) findViewById(R.id.emailEditText);
+        tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.distanceAutoComplete);
         mLoadMeButton = (Button) findViewById(R.id.loadMeonButton);
 
         tripDest.setHint(getString(R.string.trip_destination_hint));
@@ -64,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String fullName = mFullName.getText().toString();
-                String phone = mPhoneNumber.getText().toString();
-                String email = mEmail.getText().toString();
+     //           String fullName = mFullName.getText().toString();
+     //           String phone = mPhoneNumber.getText().toString();
+     //           String email = mEmail.getText().toString();
                 String destination = mDestination.getText().toString();
             }
         });
