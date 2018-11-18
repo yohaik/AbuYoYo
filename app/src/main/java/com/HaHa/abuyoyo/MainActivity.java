@@ -81,12 +81,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fineViews();
 
-     //   mFullName.setOnKeyListener(new View.OnKeyListener() {
-     //       @Override
-     //       public boolean onKey(View view, int i, KeyEvent keyEvent) {
-     //           return false;
-     //       }
-     //   });
+
     }
 
 }
