@@ -30,7 +30,7 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBEXHqNAbzsLm-RsTY1RMm7OlNWhxFruMg" />
+            android:value="AIzaSyBZi1hod-OnF5yBqH7SAZflNn-j42qxzwk" />
 
         <activity android:name=".TripSearchActivity" />
     </application>
