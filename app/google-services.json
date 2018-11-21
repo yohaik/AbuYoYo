@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "220819827265",
-    "firebase_url": "https://abuyoyo-22165.firebaseio.com",
-    "project_id": "abuyoyo-22165",
-    "storage_bucket": "abuyoyo-22165.appspot.com"
+    "project_number": "70926259202",
+    "firebase_url": "https://abuyoyo-3133e.firebaseio.com",
+    "project_id": "abuyoyo-3133e",
+    "storage_bucket": "abuyoyo-3133e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:220819827265:android:924e356a26e68692",
+        "mobilesdk_app_id": "1:70926259202:android:924e356a26e68692",
         "android_client_info": {
           "package_name": "com.HaHa.abuyoyo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "220819827265-6r53dqqohhej534gvofmpeo7vi0gj8t2.apps.googleusercontent.com",
+          "client_id": "70926259202-kt3sh2jg7uaaidm5j28u3kvenpe8rlev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.HaHa.abuyoyo",
+            "certificate_hash": "1779643972033b24acfa0bb9d2e3af115fce6cff"
+          }
+        },
+        {
+          "client_id": "70926259202-f3vnc33bd4dpjq9snaiutr1okpdlhnbc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDPsMyRmanMjwndkv47SFv_qgQ-t-xFDzA"
+          "current_key": "AIzaSyBZi1hod-OnF5yBqH7SAZflNn-j42qxzwk"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70926259202-f3vnc33bd4dpjq9snaiutr1okpdlhnbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

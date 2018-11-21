@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     dataBase.addRequest(trip, new Backend.Action<Void>() {
                         @Override
                         public void onSuccess(Void obj) {
-                            //Toast.makeText(getBaseContext(), "הנסיעה הוספה בהצלחה", Toast.LENGTH_LONG).show();
+                           Toast.makeText(getBaseContext(), "הנסיעה הוספה בהצלחה", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
                             intent.putExtra("fullName", trip.getPassengerName());
                             intent.putExtra("phone", trip.getPassengerPhone());
