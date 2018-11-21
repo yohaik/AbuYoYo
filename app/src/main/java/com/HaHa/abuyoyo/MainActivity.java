@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mEmail =  findViewById(R.id.emailEditText);
         tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.distanceAutoComplete);
         mLoadMeButton = (Button) findViewById(R.id.loadMeOnButton);
+        mLoadMeButton.setEnabled(false);
 
         tripDest.setHint(getString(R.string.trip_destination_hint));
 
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 mLocation = getPlace(location);
+                mLoadMeButton.setEnabled(true);
             }
             public void onStatusChanged(String provider, int status, Bundle extras) {
             }
