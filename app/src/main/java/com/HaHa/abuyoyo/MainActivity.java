@@ -7,29 +7,30 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.os.Build;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.widget.Toast;
 
+import com.HaHa.abuyoyo.model.backend.Backend;
+import com.HaHa.abuyoyo.model.backend.BackendFactory;
+import com.HaHa.abuyoyo.model.entities.Trip;
+import com.HaHa.abuyoyo.model.entities.mTrip;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,10 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private EditText mFullName;
     private EditText mPhoneNumber;
     private EditText mEmail;
-    private EditText mDestination;
     private PlaceAutocompleteFragment tripDest;
     private Button mLoadMeButton;
-
+    private String mLocation;
+    private String mDestination;
+    private  Trip trip;
     Location locationDest = new Location("Dest");//= new Location(from);
 
     // Acquire a reference to the system Location Manager
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 locationDest.setLatitude(place.getLatLng().latitude);
                 locationDest.setLongitude(place.getLatLng().longitude);
+                mDestination = place.getAddress().toString();
             }
 
             @Override
@@ -76,28 +79,48 @@ public class MainActivity extends AppCompatActivity {
         mLoadMeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                trip = createTripFromFields();
 
-                String fullName = mFullName.getText().toString();
-                String phone = mPhoneNumber.getText().toString();
-                String email = mEmail.getText().toString();
+                Log.d("Abu","Name: " +trip.getPassengerName());
 
-                Log.d("Abu","Name: " +fullName);
+                try {
+                    mLoadMeButton.setEnabled(false);
+                    Backend dataBase = BackendFactory.getBeckend();
+                    dataBase.addRequest(trip, new Backend.Action<Void>() {
+                        @Override
+                        public void onSuccess(Void obj) {
+                            //Toast.makeText(getBaseContext(), "הנסיעה הוספה בהצלחה", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
+                            intent.putExtra("fullName", trip.getPassengerName());
+                            intent.putExtra("phone", trip.getPassengerPhone());
+                            intent.putExtra("email", trip.getPassngerEmail());
+                            startActivity(intent);
+                            mLoadMeButton.setEnabled(true);
+                        }
 
-                //            String destination = mDestination.getText().toString();
+                        @Override
+                        public void onFailure(Exception exception) {
+                            Toast.makeText(getBaseContext(), "הוספת הנסיעה נכשלה", Toast.LENGTH_LONG).show();
+                            mLoadMeButton.setEnabled(true);
+                        }
 
-                    Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
-                    intent.putExtra("fullName", fullName);
-                    intent.putExtra("phone", phone);
-                    intent.putExtra("email", email);
-
-                    startActivity(intent);
+                        @Override
+                        public void onProgress(String status, double percent) {
+                            if( percent != 100)
+                               mLoadMeButton.setEnabled(false);
+                         }
+                        });
+                    } catch (Exception e){
+                    Toast.makeText(getBaseContext(), "Error \n", Toast.LENGTH_LONG).show();
+                    mLoadMeButton.setEnabled(true);
+                    }
                 }
             });
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-               //setText(getPlace(location));
+                mLocation = getPlace(location);
             }
             public void onStatusChanged(String provider, int status, Bundle extras) {
             }
@@ -110,6 +133,17 @@ public class MainActivity extends AppCompatActivity {
         };
         }
 
+    protected Trip createTripFromFields() {
+        Trip trip = new Trip();
+        trip.setPassengerName(mFullName.getText().toString());
+        trip.setPassengerPhone(mPhoneNumber.getText().toString());
+        trip.setPassngerEmail(mEmail.getText().toString());
+        trip.setPickUpLoc(mLocation);
+        trip.setDestinationLoc(mDestination);
+        //trip.setTripStartTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));
+        trip.setTripStatus(mTrip.Available);
+        return trip;
+    }
 
 
 

@@ -2,8 +2,8 @@ package com.HaHa.abuyoyo.model.entities;
 
 public class Trip {
 
-    private double pickUpLoc;
-    private double destinationLoc;
+    private String pickUpLoc;
+    private String destinationLoc;
     private String tripStartTime;
     private String tripEndTime;
     private String passengerName;
@@ -15,19 +15,19 @@ public class Trip {
 
     public void setTripStatus(mTrip tripStatus) { this.tripStatus = tripStatus; }
 
-    public double getPickUpLoc() {
+    public String getPickUpLoc() {
         return pickUpLoc;
     }
 
-    public void setPickUpLoc(double pickUpLoc) {
+    public void setPickUpLoc(String pickUpLoc) {
         this.pickUpLoc = pickUpLoc;
     }
 
-    public double getDestinationLoc() {
+    public String getDestinationLoc() {
         return destinationLoc;
     }
 
-    public void setDestinationLoc(double destinationLoc) {
+    public void setDestinationLoc(String destinationLoc) {
         this.destinationLoc = destinationLoc;
     }
 
