@@ -5,6 +5,7 @@
     style="@style/TripSearchThemr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/taxi_bg"
     tools:context=".TripSearchActivity">
 
     <TextView
@@ -16,7 +17,8 @@
         android:layout_marginTop="-286dp"
         android:gravity="center"
         android:text="@string/main_message"
-        android:textSize="60dp" />
+        android:textColor="#ffffff"
+        android:textSize="60sp" />
 
 
 </RelativeLayout>
