@@ -29,8 +29,6 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     mLoadMeButton.setEnabled(false);
-                    Backend dataBase = BackendFactory.getBeckend();
+                    Backend dataBase = BackendFactory.getBackend();
                     dataBase.addRequest(trip, new Backend.Action<Void>() {
                         @Override
                         public void onSuccess(Void obj) {
@@ -111,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                          }
                         });
                     } catch (Exception e){
+                    Log.d("Abu", e.getMessage());
                     Toast.makeText(getBaseContext(), "Error \n", Toast.LENGTH_LONG).show();
                     mLoadMeButton.setEnabled(true);
                     }
