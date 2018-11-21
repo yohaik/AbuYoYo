@@ -8,4 +8,5 @@
     <string name="abuyoyo_logo_Description">AbuYoYo logo</string>
     <string name="trip_destination_hint">Destination</string>
     <string name="main_message">main message</string>
+    <string name="origin_hint">Current Location</string>
 </resources>

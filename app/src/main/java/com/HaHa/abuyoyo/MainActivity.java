@@ -39,11 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private EditText mPhoneNumber;
     private EditText mEmail;
     private PlaceAutocompleteFragment tripDest;
+    private PlaceAutocompleteFragment tripOrig;
+
     private Button mLoadMeButton;
     private String mLocation;
     private String mDestination;
+    private String mOrigin;
     private  Trip trip;
     Location locationDest = new Location("Dest");//= new Location(from);
+    Location locationOrig = new Location("Origin");
 
     // Acquire a reference to the system Location Manager
     LocationManager locationManager;
@@ -54,11 +58,13 @@ public class MainActivity extends AppCompatActivity {
         mFullName =  findViewById(R.id.fulllNameEditText);
         mPhoneNumber =  findViewById(R.id.phoneNumberEditText);
         mEmail =  findViewById(R.id.emailEditText);
-        tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.distanceAutoComplete);
+        tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.destinationFragment);
+        tripOrig = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.originFragment);
         mLoadMeButton = (Button) findViewById(R.id.loadMeOnButton);
         mLoadMeButton.setEnabled(false);
 
         tripDest.setHint(getString(R.string.trip_destination_hint));
+        tripOrig.setHint(getString(R.string.origin_hint));
 
         //srt listener autocomplet
         tripDest.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -67,6 +73,20 @@ public class MainActivity extends AppCompatActivity {
                 locationDest.setLatitude(place.getLatLng().latitude);
                 locationDest.setLongitude(place.getLatLng().longitude);
                 mDestination = place.getAddress().toString();
+            }
+
+            @Override
+            public void onError(Status status) {
+
+            }
+        });
+
+        tripOrig.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                locationOrig.setLatitude(place.getLatLng().latitude);
+                locationOrig.setLongitude(place.getLatLng().longitude);
+                mOrigin = place.getAddress().toString();
             }
 
             @Override
@@ -121,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 mLocation = getPlace(location);
+                tripOrig.setText(mLocation);
                 mLoadMeButton.setEnabled(true);
             }
             public void onStatusChanged(String provider, int status, Bundle extras) {

@@ -68,7 +68,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/distanceAutoComplete"
+        app:layout_constraintBottom_toTopOf="@+id/originFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
@@ -83,21 +83,39 @@
 
     </android.support.design.widget.TextInputLayout>
 
+
     <fragment
-        android:id="@+id/distanceAutoComplete"
+        android:id="@+id/originFragment"
         android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/loadMeOnButton"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/destinationFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
+    <fragment
+        android:id="@+id/destinationFragment"
+        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/loadMeOnButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/originFragment"
+        app:layout_constraintVertical_bias="0.847" />
 
     <TextView
         android:id="@+id/textView"
@@ -124,13 +142,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/distanceAutoComplete" />
+        app:layout_constraintTop_toBottomOf="@+id/destinationFragment"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="287dp"
-        android:layout_height="0dp"
+        android:layout_height="345dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
