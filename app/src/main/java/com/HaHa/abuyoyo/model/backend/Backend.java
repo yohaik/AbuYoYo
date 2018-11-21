@@ -1,10 +1,16 @@
 package com.HaHa.abuyoyo.model.backend;
 
-import android.content.ContentValues;
-import android.content.Context;
-
 import com.HaHa.abuyoyo.model.entities.Trip;
 
 public interface Backend {
-    void addRequest(ContentValues trip, final Context context);
+
+    public interface Action<T> {
+        void onSuccess(T obj);
+
+        void onFailure(Exception exception);
+
+        void onProgress(String status, double percent);
+    }
+
+    void addRequest(Trip trip,final Action<Void> action);
 }

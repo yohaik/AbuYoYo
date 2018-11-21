@@ -1,11 +1,7 @@
 package com.HaHa.abuyoyo.model.entities;
 
 public class Trip {
-    private enum mTrip{
-        Available,
-        InProgress,
-        Completed
-    };
+
     private double pickUpLoc;
     private double destinationLoc;
     private String tripStartTime;
@@ -13,6 +9,11 @@ public class Trip {
     private String passengerName;
     private String passengerPhone;
     private String passngerEmail;
+    private mTrip tripStatus;
+
+    public mTrip getTripStatus() { return tripStatus; }
+
+    public void setTripStatus(mTrip tripStatus) { this.tripStatus = tripStatus; }
 
     public double getPickUpLoc() {
         return pickUpLoc;
