@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 locationOrig.setLatitude(place.getLatLng().latitude);
                 locationOrig.setLongitude(place.getLatLng().longitude);
                 mOrigin = place.getAddress().toString();
+                mLoadMeButton.setEnabled(true);
+                locationManager.removeUpdates(locationListener);
             }
 
             @Override
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 mLocation = getPlace(location);
-                tripOrig.setText(mLocation);
+                tripOrig.setHint(mLocation);
                 mLoadMeButton.setEnabled(true);
             }
             public void onStatusChanged(String provider, int status, Bundle extras) {
