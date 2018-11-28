@@ -149,8 +149,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="287dp"
-        android:layout_height="345dp"
+        android:layout_width="343dp"
+        android:layout_height="281dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
