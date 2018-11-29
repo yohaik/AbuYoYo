@@ -6,5 +6,6 @@
     <color name="colorAccent">#000000</color>
     <color name="colorText">#2f1f20</color>
     <color name="colorStrokes">#ffc16e</color>
-    <color name="White">#ffffff</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#27AE60</color>
 </resources>

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.os.Build;
@@ -31,6 +32,10 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import static com.HaHa.abuyoyo.RegisterActivity.CHAT_PREFS;
+import static com.HaHa.abuyoyo.RegisterActivity.DISPLAY_NAME_KEY;
+import static com.HaHa.abuyoyo.RegisterActivity.DISPLAY_PHONE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -112,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(Void obj) {
                            Toast.makeText(getBaseContext(), "הנסיעה הוספה בהצלחה", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
+
+
+
                             intent.putExtra("fullName", trip.getPassengerName());
                             intent.putExtra("phone", trip.getPassengerPhone());
                             intent.putExtra("email", trip.getPassngerEmail());
@@ -159,8 +167,13 @@ public class MainActivity extends AppCompatActivity {
 
     protected Trip createTripFromFields() {
         Trip trip = new Trip();
-        trip.setPassengerName(mFullName.getText().toString());
-        trip.setPassengerPhone(mPhoneNumber.getText().toString());
+
+        SharedPreferences prefs = getSharedPreferences(CHAT_PREFS,0);
+        trip.setPassengerName( prefs.getString(DISPLAY_NAME_KEY,"username"));
+
+
+      //  trip.setPassengerName(mFullName.getText().toString());
+        trip.setPassengerPhone(prefs.getString(DISPLAY_PHONE,"phone"));
         trip.setPassngerEmail(mEmail.getText().toString());
         trip.setPickUpLoc(mLocation);
         trip.setDestinationLoc(mDestination);
