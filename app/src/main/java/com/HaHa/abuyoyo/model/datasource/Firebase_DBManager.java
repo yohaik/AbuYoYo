@@ -28,6 +28,8 @@ public class Firebase_DBManager implements Backend {
             @Override
             public void onSuccess(Void aVoid) {
                 action.onSuccess(aVoid);
+                action.onProgress("upload trip data", 100);
+
             }
         });
 
@@ -35,8 +37,10 @@ public class Firebase_DBManager implements Backend {
             @Override
             public void onFailure(@NonNull Exception e) {
                 action.onFailure(e);
+                action.onProgress("error upload student data", 100);
             }
         });
+
 
     }
 }

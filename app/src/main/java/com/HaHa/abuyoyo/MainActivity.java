@@ -20,6 +20,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.widget.Toast;
 
+import com.HaHa.abuyoyo.model.backend.AddTripAsynsTask;
 import com.HaHa.abuyoyo.model.backend.Backend;
 import com.HaHa.abuyoyo.model.backend.BackendFactory;
 import com.HaHa.abuyoyo.model.entities.Trip;
@@ -53,16 +54,21 @@ public class MainActivity extends AppCompatActivity {
     private  Trip trip;
     Location locationDest = new Location("Dest");//= new Location(from);
     Location locationOrig = new Location("Origin");
+    Backend dataBase;
+    Boolean success;
 
     // Acquire a reference to the system Location Manager
     LocationManager locationManager;
     //Define a listener that responds to location updates
     LocationListener locationListener;
 
+    //class AsynsTask
+    AddTripAsynsTask addTripAsynsTask;
+
     private void fineViews(){
-        mFullName =  findViewById(R.id.fulllNameEditText);
-        mPhoneNumber =  findViewById(R.id.phoneNumberEditText);
-        mEmail =  findViewById(R.id.emailEditText);
+       // mFullName =  findViewById(R.id.fulllNameEditText);
+       // mPhoneNumber =  findViewById(R.id.phoneNumberEditText);
+       // mEmail =  findViewById(R.id.emailEditText);
         tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.destinationFragment);
         tripOrig = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.originFragment);
         mLoadMeButton = (Button) findViewById(R.id.loadMeOnButton);
@@ -108,43 +114,56 @@ public class MainActivity extends AppCompatActivity {
                 trip = createTripFromFields();
 
                 Log.d("Abu","Name: " +trip.getPassengerName());
+                dataBase = BackendFactory.getBackend();
 
-                try {
-                    mLoadMeButton.setEnabled(false);
-                    Backend dataBase = BackendFactory.getBackend();
-                    dataBase.addRequest(trip, new Backend.Action<Void>() {
-                        @Override
-                        public void onSuccess(Void obj) {
-                           Toast.makeText(getBaseContext(), "הנסיעה הוספה בהצלחה", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
+               addTripAsynsTask = new AddTripAsynsTask(new AddTripAsynsTask.AddTripAsynsTaskFunction(){
+                   @Override
+                   public void onPreExecute() {
+                       mLoadMeButton.setEnabled(false);
+                       }
 
+                   @Override
+                   public void onPostExecute() {
+                       mLoadMeButton.setEnabled(true);
+                   }
 
+                   @Override
+                   public void doInBackground(final Trip trip) {
+                       //success = true;
+                       dataBase.addRequest(trip, new Backend.Action<Void>() {
+                           @Override
+                           public void onSuccess(Void obj) {
+                               onProgress("upload trip data", 99);
+                               Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
+                               intent.putExtra("fullName", trip.getPassengerName());
+                               intent.putExtra("phone", trip.getPassengerPhone());
+                               intent.putExtra("email", trip.getPassngerEmail());
+                               startActivity(intent);
+                               }
 
-                            intent.putExtra("fullName", trip.getPassengerName());
-                            intent.putExtra("phone", trip.getPassengerPhone());
-                            intent.putExtra("email", trip.getPassngerEmail());
-                            startActivity(intent);
-                            mLoadMeButton.setEnabled(true);
-                        }
+                           @Override
+                           public void onFailure(Exception exception) {
+                               Toast.makeText(getBaseContext(), "הוספת הנסיעה נכשלה", Toast.LENGTH_LONG).show();
+                           }
 
-                        @Override
-                        public void onFailure(Exception exception) {
-                            Toast.makeText(getBaseContext(), "הוספת הנסיעה נכשלה", Toast.LENGTH_LONG).show();
-                            mLoadMeButton.setEnabled(true);
-                        }
-
-                        @Override
-                        public void onProgress(String status, double percent) {
-                            if( percent != 100)
-                               mLoadMeButton.setEnabled(false);
-                         }
-                        });
-                    } catch (Exception e){
+                           @Override
+                           public void onProgress(String status, double percent) {
+                               if( percent != 100) {
+                                   Toast.makeText(getBaseContext(),"upload trip data",Toast.LENGTH_SHORT).show();
+                                   mLoadMeButton.setEnabled(false);
+                               }
+                           }
+                       });
+                   }
+               });
+               try {
+                   addTripAsynsTask.execute(trip);
+                   } catch (Exception e){
                     Log.d("Abu", e.getMessage());
                     Toast.makeText(getBaseContext(), "Error \n", Toast.LENGTH_LONG).show();
                     mLoadMeButton.setEnabled(true);
                     }
-                }
+            }
             });
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -170,12 +189,10 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(CHAT_PREFS,0);
         trip.setPassengerName( prefs.getString(DISPLAY_NAME_KEY,"username"));
-
-
       //  trip.setPassengerName(mFullName.getText().toString());
         trip.setPassengerPhone(prefs.getString(DISPLAY_PHONE,"phone"));
-        trip.setPassngerEmail(mEmail.getText().toString());
-        trip.setPickUpLoc(mLocation);
+      //  trip.setPassngerEmail(mEmail.getText().toString());
+        trip.setPickUpLoc(mOrigin);
         trip.setDestinationLoc(mDestination);
         //trip.setTripStartTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         trip.setTripStatus(mTrip.Available);
