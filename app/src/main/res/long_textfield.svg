@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 327 48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #725545;
+      }
+
+      .cls-2 {
+        stroke: none;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="long_textfield" transform="translate(-24 -493)">
+    <g id="Rectangle_588" data-name="Rectangle 588" class="cls-1" transform="translate(24 493)">
+      <rect class="cls-2" width="327" height="48" rx="20"/>
+      <rect class="cls-3" x="0.5" y="0.5" width="326" height="47" rx="19.5"/>
+    </g>
+  </g>
+</svg>
