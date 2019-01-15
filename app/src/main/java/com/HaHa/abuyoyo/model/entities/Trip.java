@@ -9,8 +9,16 @@ public class Trip {
     private String passengerName;
     private String passengerPhone;
     private String passngerEmail;
+    private String idDriver;
     private mTrip tripStatus;
+    
+    public String getIdDriver() {
+        return idDriver;
+    }
 
+    public void setIdDriver(String idDriver) {
+        this.idDriver = idDriver;
+    }
     public mTrip getTripStatus() { return tripStatus; }
 
     public void setTripStatus(mTrip tripStatus) { this.tripStatus = tripStatus; }
