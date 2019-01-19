@@ -31,6 +31,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private String mLocation;
     private String mDestination;
     private String mOrigin;
+    String cityTrip;
+    private String tripDistane;
     private  Trip trip;
     Location locationDest = new Location("Dest");//= new Location(from);
     Location locationOrig = new Location("Origin");
@@ -78,13 +81,18 @@ public class MainActivity extends AppCompatActivity {
         tripDest.setHint(getString(R.string.trip_destination_hint));
         tripOrig.setHint(getString(R.string.origin_hint));
 
-        //srt listener autocomplet
+        //srt listener autocomplete
         tripDest.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
                 locationDest.setLatitude(place.getLatLng().latitude);
                 locationDest.setLongitude(place.getLatLng().longitude);
                 mDestination = place.getAddress().toString();
+                try {
+                    cityTrip = getCitytrip(locationDest);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -190,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(CHAT_PREFS,0);
         trip.setPassengerName( prefs.getString(DISPLAY_NAME_KEY,"username"));
+        trip.setCityDestination(cityTrip);
       //  trip.setPassengerName(mFullName.getText().toString());
         trip.setPassengerPhone(prefs.getString(DISPLAY_PHONE,"phone"));
       //  trip.setPassngerEmail(mEmail.getText().toString());
@@ -197,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         trip.setDestinationLoc(mDestination);
         //trip.setTripStartTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         trip.setTripStatus(mTrip.Available);
+        trip.setTripDistance(findDistance(locationDest, locationOrig));
         return trip;
     }
 
@@ -247,6 +257,38 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return "IOException ...";
+    }
+
+    private String getCitytrip(Location location) throws IOException {
+
+        Geocoder geocoder = new Geocoder(this);
+
+         List<Address> addresses = geocoder.getFromLocation (location.getLatitude(), location.getLongitude(), 1);
+
+         Address destinationAddress = addresses.get(0);
+
+        return destinationAddress.getLocality();
+
+    }
+
+    public String findDistance(Location locationA, Location locationB){
+        if(locationA == null || locationB == null){
+            return "0";
+        }
+        float[] results = new float[1];
+        Location.distanceBetween(locationA.getLatitude(), locationA.getLongitude(),
+                locationB.getLatitude(),locationB.getLongitude(), results);
+
+        if(results[0]>1000) {
+            float result = results[0] / 1000;
+
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            return decimalFormat.format(result);
+        }
+        else
+        {
+            return ""+results[0]  +" meter";
+        }
     }
 
     @SuppressLint("MissingPermission")

@@ -11,6 +11,26 @@ public class Trip {
     private String passngerEmail;
     private mTrip tripStatus;
     private String idDriver;
+    private String cityDestination;
+
+    private String  tripDistance;
+
+    public String getTripDistance() {
+        return tripDistance;
+    }
+
+    public void setTripDistance(String tripDistance) {
+        this.tripDistance = tripDistance;
+    }
+
+
+    public String getCityDestination() {
+        return cityDestination;
+    }
+
+    public void setCityDestination(String cityDestination) {
+        this.cityDestination = cityDestination;
+    }
 
     public String getIdDriver() {
         return idDriver;
