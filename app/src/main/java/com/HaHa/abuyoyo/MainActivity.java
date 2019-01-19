@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     Location locationDest = new Location("Dest");//= new Location(from);
     Location locationOrig = new Location("Origin");
     Backend dataBase;
+
     Boolean success;
 
     // Acquire a reference to the system Location Manager
