@@ -25,8 +25,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
 
     // Constants
-    public static final String CHAT_PREFS = "ChatPrefs";
+    public static final String ABU_PREFS = "AbuPrefs";
     public static final String DISPLAY_NAME_KEY = "username";
+    public static final String DISPLAY_EMAIL = "email";
     public static final String DISPLAY_PHONE = "phone";
 
     // TODO: Add member variables here:
@@ -156,10 +157,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     // TODO: Save the display name to Shared Preferences
     private  void saveDisplayName(){
-        String displayName = mUsernameView.getText().toString();
+        String userName = mUsernameView.getText().toString();
+        String email = mEmailView.getText().toString();
         String displayPhone = mPhoneView.getText().toString();
-        SharedPreferences prefs = getSharedPreferences(CHAT_PREFS,0);
-        prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
+        SharedPreferences prefs = getSharedPreferences(ABU_PREFS,0);
+        prefs.edit().putString(DISPLAY_NAME_KEY, userName).apply();
+        prefs.edit().putString(DISPLAY_EMAIL, email).apply();
         prefs.edit().putString(DISPLAY_PHONE,displayPhone).apply();
     }
 

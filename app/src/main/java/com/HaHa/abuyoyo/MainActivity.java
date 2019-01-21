@@ -32,10 +32,12 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import static com.HaHa.abuyoyo.RegisterActivity.CHAT_PREFS;
+import static com.HaHa.abuyoyo.RegisterActivity.ABU_PREFS;
 import static com.HaHa.abuyoyo.RegisterActivity.DISPLAY_NAME_KEY;
 import static com.HaHa.abuyoyo.RegisterActivity.DISPLAY_PHONE;
 
@@ -109,6 +111,11 @@ public class MainActivity extends AppCompatActivity {
                 mOrigin = place.getAddress().toString();
                 mLoadMeButton.setEnabled(true);
                 locationManager.removeUpdates(locationListener);
+                try {
+                    cityTrip = getCitytrip(locationOrig);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -196,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
     protected Trip createTripFromFields() {
         Trip trip = new Trip();
 
-        SharedPreferences prefs = getSharedPreferences(CHAT_PREFS,0);
+        SharedPreferences prefs = getSharedPreferences(ABU_PREFS,0);
         trip.setPassengerName( prefs.getString(DISPLAY_NAME_KEY,"username"));
         trip.setCityDestination(cityTrip);
       //  trip.setPassengerName(mFullName.getText().toString());
@@ -207,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
         //trip.setTripStartTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         trip.setTripStatus(mTrip.Available);
         trip.setTripDistance(findDistance(locationDest, locationOrig));
+        trip.setTripStartTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         return trip;
     }
 

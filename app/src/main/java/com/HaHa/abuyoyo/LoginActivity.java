@@ -2,6 +2,7 @@ package com.HaHa.abuyoyo;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -23,11 +24,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class  LoginActivity extends AppCompatActivity {
 
+    // Constants
+    public static final String ABU_PREFS = "AbuPrefs";
+    public static final String DISPLAY_EMAIL = "email";
+
+
     // TODO: Add member variables here:
     private FirebaseAuth mAuth;
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,9 @@ public class  LoginActivity extends AppCompatActivity {
         // Connect the objects for screen
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        prefs = getSharedPreferences(ABU_PREFS,0);
+        if (prefs.contains(DISPLAY_EMAIL))
+            mEmailView.setText(prefs.getString("email", ""));
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -91,6 +101,9 @@ public class  LoginActivity extends AppCompatActivity {
                     showErrorDialod("There was a problem signing in");
                 }
                 else{
+                    String email = mEmailView.getText().toString();
+                    SharedPreferences prefs = getSharedPreferences(ABU_PREFS,0);
+                    prefs.edit().putString(DISPLAY_EMAIL, email).apply();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     finish();
                     startActivity(intent);
