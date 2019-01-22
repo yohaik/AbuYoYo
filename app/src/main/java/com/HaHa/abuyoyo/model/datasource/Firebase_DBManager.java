@@ -20,6 +20,8 @@ public class Firebase_DBManager implements Backend {
         tripsRef = database.getReference("Trips");
     }
 
+
+
     @Override
     public void addRequest(Trip trip ,final Action<Void> action) {
         Task<Void> task = tripsRef.push().setValue(trip);

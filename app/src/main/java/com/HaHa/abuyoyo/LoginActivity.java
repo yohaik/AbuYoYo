@@ -39,11 +39,16 @@ public class  LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Connect the objects for screen
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailView =  findViewById(R.id.email);
+        mPasswordView =  findViewById(R.id.password);
         prefs = getSharedPreferences(ABU_PREFS,0);
         if (prefs.contains(DISPLAY_EMAIL))
             mEmailView.setText(prefs.getString("email", ""));
@@ -59,14 +64,12 @@ public class  LoginActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Grab an instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
     }
 
     // Executed when Sign in button pressed
     public void signInExistingUser(View v)   {
-        // TODO: Call attemptLogin() here
         attemptLogin();
     }
 
@@ -77,7 +80,6 @@ public class  LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO: Complete the attemptLogin() method
     private void attemptLogin() {
 
         String email = mEmailView.getText().toString();
@@ -89,15 +91,14 @@ public class  LoginActivity extends AppCompatActivity {
             Toast.makeText(this,"Login in progress....",Toast.LENGTH_SHORT).show();
         }
 
-        // TODO: Use FirebaseAuth to sign in with email & password
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d("Flashchat", "signInWithEmailAndPassword() OnCompplete: "+ task.isSuccessful());
+                Log.d("AbuYoYo", "signInWithEmailAndPassword() OnCompplete: "+ task.isSuccessful());
 
                 if(!task.isSuccessful())
                 {
-                    Log.d("Flashchat", "Problem signing in: "+ task.getException());
+                    Log.d("AbuYoYo", "Problem signing in: "+ task.getException());
                     showErrorDialod("There was a problem signing in");
                 }
                 else{
@@ -113,7 +114,6 @@ public class  LoginActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: Show error on screen with an alert dialog
     private void showErrorDialod(String message){
 
         new AlertDialog.Builder(this)
@@ -122,9 +122,7 @@ public class  LoginActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-        //        AlertDialog alertDialog = new AlertDialog;
-//        alertDialog.setTitle("Oops");
-//        alertDialog.setButton(1, android.R.string.ok, android.R.dra);
+
     }
 
 

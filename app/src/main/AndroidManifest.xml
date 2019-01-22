@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
+        
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.Launcher">

@@ -32,11 +32,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_row"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/logo_row" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/email_login_form"
@@ -95,15 +95,15 @@
                 android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical|center_horizontal|center"
-                android:layout_marginLeft="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginStart="20dp"
                 android:gravity="center_vertical"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="10dp" />
+                android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -126,15 +126,16 @@
                 android:id="@+id/password"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="20dp"
                 android:hint="@string/prompt_password"
                 android:imeActionId="6"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:layout_marginStart="20dp" />
+                android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
 

@@ -55,9 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private String mDestination;
     private String mOrigin;
     String cityTrip;
-    private String tripDistane;
     private  Trip trip;
-    Location locationDest = new Location("Dest");//= new Location(from);
+    Location locationDest = new Location("Dest");//= new Location(message_for_client);
     Location locationOrig = new Location("Origin");
     Backend dataBase;
 
@@ -71,10 +70,8 @@ public class MainActivity extends AppCompatActivity {
     //class AsynsTask
     AddTripAsynsTask addTripAsynsTask;
 
-    private void fineViews(){
-       // mFullName =  findViewById(R.id.fulllNameEditText);
-       // mPhoneNumber =  findViewById(R.id.phoneNumberEditText);
-       // mEmail =  findViewById(R.id.emailEditText);
+    private void initializeViews(){
+
         tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.destinationFragment);
         tripOrig = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.originFragment);
         mLoadMeButton = (Button) findViewById(R.id.loadMeOnButton);
@@ -150,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                            @Override
                            public void onSuccess(Void obj) {
                                onProgress("upload trip data", 99);
+
+
                                Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
                                intent.putExtra("fullName", trip.getPassengerName());
                                intent.putExtra("phone", trip.getPassengerPhone());
@@ -206,12 +205,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(ABU_PREFS,0);
         trip.setPassengerName( prefs.getString(DISPLAY_NAME_KEY,"username"));
         trip.setCityDestination(cityTrip);
-      //  trip.setPassengerName(mFullName.getText().toString());
         trip.setPassengerPhone(prefs.getString(DISPLAY_PHONE,"phone"));
-      //  trip.setPassngerEmail(mEmail.getText().toString());
         trip.setPickUpLoc(mOrigin);
         trip.setDestinationLoc(mDestination);
-        //trip.setTripStartTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         trip.setTripStatus(mTrip.Available);
         trip.setTripDistance(findDistance(locationDest, locationOrig));
         trip.setTripStartTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()));
@@ -224,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fineViews();
+        initializeViews();
         getLocation();
     }
 

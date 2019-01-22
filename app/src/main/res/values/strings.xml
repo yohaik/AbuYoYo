@@ -28,4 +28,10 @@
     <string name="phone_number">Phone Number</string>
     <string name="not_have_account">Don\'t have an account? Sign Up!</string>
     <string name="please_log_in">Please Log In</string>
+    <string name="instructions">Please select starting point and destination</string>
+    <string name="cancel_trip">Cancel Trip</string>
+    <string name="from">from</string>
+    <string name="driver_name">Driver Name</string>
+    <string name="driver_phone">Driver Phone</string>
+    <string name="to">to</string>
 </resources>
