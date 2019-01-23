@@ -8,12 +8,21 @@ import com.HaHa.abuyoyo.model.entities.Trip;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Firebase_DBManager implements Backend {
 
     static DatabaseReference tripsRef;
+
+    public String getID() {
+        return key;
+    }
+
+
+
+    static String key;
 
     static {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -24,7 +33,12 @@ public class Firebase_DBManager implements Backend {
 
     @Override
     public void addRequest(Trip trip ,final Action<Void> action) {
-        Task<Void> task = tripsRef.push().setValue(trip);
+
+        key = tripsRef.push().getKey();
+
+        trip.setId(key);
+
+        Task<Void> task = tripsRef.child(key).setValue(trip);
 
         task.addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -44,6 +58,12 @@ public class Firebase_DBManager implements Backend {
         });
 
 
+    }
+
+    @Override
+    public void deleteTrip(String key)
+    {
+        tripsRef.child(key).removeValue();
     }
 }
 

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     Location locationDest = new Location("Dest");//= new Location(message_for_client);
     Location locationOrig = new Location("Origin");
     Backend dataBase;
-
+private String key;
     Boolean success;
 
     // Acquire a reference to the system Location Manager
@@ -148,11 +148,14 @@ public class MainActivity extends AppCompatActivity {
                            public void onSuccess(Void obj) {
                                onProgress("upload trip data", 99);
 
+                               trip.setId(dataBase.getID());
+
 
                                Intent intent = new Intent(MainActivity.this, TripSearchActivity.class);
+
+                               intent.putExtra("key", trip.getId());
                                intent.putExtra("fullName", trip.getPassengerName());
-                               intent.putExtra("phone", trip.getPassengerPhone());
-                               intent.putExtra("email", trip.getPassngerEmail());
+
                                startActivity(intent);
                                }
 
@@ -169,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                                }
                            }
                        });
+
                    }
                });
                try {

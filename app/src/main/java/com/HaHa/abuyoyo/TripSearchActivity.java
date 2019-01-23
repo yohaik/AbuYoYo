@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.HaHa.abuyoyo.model.backend.Backend;
 import com.HaHa.abuyoyo.model.backend.BackendFactory;
@@ -19,11 +20,14 @@ import com.HaHa.abuyoyo.model.entities.mTrip;
 
 public class TripSearchActivity extends AppCompatActivity {
 
-    private String fullName;
+    private String key;
     private TextView mainMessage;
+    private String fullname;
 
     Button cancelTrip;
     Backend dataBase = BackendFactory.getBackend();
+    Trip currentTrip = new Trip();
+
 
 
     SharedPreferences prefs;
@@ -39,16 +43,17 @@ public class TripSearchActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            fullName = extras.getString("fullName");
+            key = extras.getString("key");
+            fullname = extras.getString("fullName");
             // and get whatever type user account id is
         }
 
-        Log.d("Abu","Name intent: " +fullName);
+
 
 
         mainMessage = findViewById(R.id.message_for_client);
 
-        mainMessage.setText(fullName+",\n"+ WAIT_FOR_DRIVER);
+        mainMessage.setText(fullname+",\n"+ WAIT_FOR_DRIVER);
 
         cancelTrip = findViewById(R.id.cancelTripButton);
 
@@ -62,7 +67,7 @@ public class TripSearchActivity extends AppCompatActivity {
                         .setMessage("Are you sure you want to cancel this trip?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                dataBase.deleteTrip(key);
                                 startActivity(new Intent(TripSearchActivity.this, MainActivity.class));
                                 finish();
                             }
@@ -78,4 +83,5 @@ public class TripSearchActivity extends AppCompatActivity {
         });
 
     }
+
 }

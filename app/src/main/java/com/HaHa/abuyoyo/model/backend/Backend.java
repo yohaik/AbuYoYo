@@ -13,4 +13,8 @@ public interface Backend {
     }
 
     void addRequest(Trip trip,final Action<Void> action);
+
+    String getID();
+     void deleteTrip(String key);
+
 }
