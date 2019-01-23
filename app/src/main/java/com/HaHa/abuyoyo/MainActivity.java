@@ -189,7 +189,8 @@ private String key;
         locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 mLocation = getPlace(location);
-                tripOrig.setHint(mLocation);
+                if(mLocation != null)
+                    tripOrig.setHint(mLocation);
                 mLoadMeButton.setEnabled(true);
             }
             public void onStatusChanged(String provider, int status, Bundle extras) {
