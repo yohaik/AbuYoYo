@@ -24,26 +24,25 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class  LoginActivity extends AppCompatActivity {
 
-    // Constants
     public static final String ABU_PREFS = "AbuPrefs";
     public static final String DISPLAY_EMAIL = "email";
 
-
-    // TODO: Add member variables here:
     private FirebaseAuth mAuth;
-    // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Launch Spalsh screen
         setTheme(R.style.AppTheme);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Connect the objects for screen
@@ -53,6 +52,7 @@ public class  LoginActivity extends AppCompatActivity {
         if (prefs.contains(DISPLAY_EMAIL))
             mEmailView.setText(prefs.getString("email", ""));
 
+        // Activate Firebase Authentication
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -99,7 +99,7 @@ public class  LoginActivity extends AppCompatActivity {
                 if(!task.isSuccessful())
                 {
                     Log.d("AbuYoYo", "Problem signing in: "+ task.getException());
-                    showErrorDialod("There was a problem signing in");
+                    showErrorDialog("There was a problem signing in");
                 }
                 else{
                     String email = mEmailView.getText().toString();
@@ -114,7 +114,7 @@ public class  LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void showErrorDialod(String message){
+    private void showErrorDialog(String message){
 
         new AlertDialog.Builder(this)
                 .setTitle("Oops")

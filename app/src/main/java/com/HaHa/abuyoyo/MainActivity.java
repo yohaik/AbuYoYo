@@ -43,10 +43,6 @@ import static com.HaHa.abuyoyo.RegisterActivity.DISPLAY_PHONE;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Object on main activity screen
-    private EditText mFullName;
-    private EditText mPhoneNumber;
-    private EditText mEmail;
     private PlaceAutocompleteFragment tripDest;
     private PlaceAutocompleteFragment tripOrig;
 
@@ -59,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
     Location locationDest = new Location("Dest");//= new Location(message_for_client);
     Location locationOrig = new Location("Origin");
     Backend dataBase;
-private String key;
-    Boolean success;
 
     // Acquire a reference to the system Location Manager
     LocationManager locationManager;
@@ -70,11 +64,12 @@ private String key;
     //class AsynsTask
     AddTripAsynsTask addTripAsynsTask;
 
+    // Initialize all fields in UI and the liteners
     private void initializeViews(){
 
         tripDest = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.destinationFragment);
         tripOrig = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.originFragment);
-        mLoadMeButton = (Button) findViewById(R.id.loadMeOnButton);
+        mLoadMeButton = findViewById(R.id.loadMeOnButton);
         mLoadMeButton.setEnabled(false);
 
         tripDest.setHint(getString(R.string.trip_destination_hint));
@@ -203,7 +198,8 @@ private String key;
         };
         }
 
-    protected Trip createTripFromFields() {
+        // Take the data from ui fields and create trip for firebase
+        protected Trip createTripFromFields() {
         Trip trip = new Trip();
 
         SharedPreferences prefs = getSharedPreferences(ABU_PREFS,0);
@@ -230,8 +226,7 @@ private String key;
 
 
 
-//gps get location metod
-
+    //gps get location method
     private void getLocation() {
 
         //     Check the SDK version and whether the permission is already granted or not.
@@ -245,6 +240,8 @@ private String key;
         }
 
     }
+
+    // Translate loction by long\lat nums to address string
     public String getPlace(Location location) {
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -267,6 +264,7 @@ private String key;
         return "IOException ...";
     }
 
+    // Extract the city name from the addresss
     private String getCitytrip(Location location) throws IOException {
 
         Geocoder geocoder = new Geocoder(this);
@@ -279,6 +277,7 @@ private String key;
 
     }
 
+    // Calculate the trip distance between two addresses
     public String findDistance(Location locationA, Location locationB){
         if(locationA == null || locationB == null){
             return "0";

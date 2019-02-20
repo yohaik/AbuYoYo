@@ -30,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String DISPLAY_EMAIL = "email";
     public static final String DISPLAY_PHONE = "phone";
 
-    // TODO: Add member variables here:
     // UI references.
     private AutoCompleteTextView mEmailView;
     private AutoCompleteTextView mUsernameView;
@@ -65,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Get hold of an instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
     }
@@ -111,7 +109,6 @@ public class RegisterActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // TODO: Call create FirebaseUser() here
             createFirebaseUser();
         }
     }
@@ -125,11 +122,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         String confirmPassword = mConfirmPasswordView.getText().toString();
 
-        //TODO: Add own logic to check for a valid password (minimum 6 characters)
         return confirmPassword.equals(password) && password.length() > 5 && !password.contains(" ");
     }
 
-    // TODO: Create a Firebase user
+    // Create a Firebase user
     private void createFirebaseUser(){
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -155,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: Save the display name to Shared Preferences
+    // Save the display name to Shared Preferences
     private  void saveDisplayName(){
         String userName = mUsernameView.getText().toString();
         String email = mEmailView.getText().toString();
@@ -166,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
         prefs.edit().putString(DISPLAY_PHONE,displayPhone).apply();
     }
 
-    // TODO: Create an alert dialog to show in case registration failed
+    // Create an alert dialog to show in case registration failed
     private void showErrorDialog(String message){
         new AlertDialog.Builder(this)
                 .setTitle("Oops")

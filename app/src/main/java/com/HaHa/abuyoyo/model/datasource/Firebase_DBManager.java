@@ -23,7 +23,7 @@ public class Firebase_DBManager implements Backend {
 
 
     static String key;
-
+    // Get the "Trips" tree source
     static {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         tripsRef = database.getReference("Trips");
@@ -31,6 +31,7 @@ public class Firebase_DBManager implements Backend {
 
 
 
+    // This function adds trip to the list in Firebase
     @Override
     public void addRequest(Trip trip ,final Action<Void> action) {
 
@@ -60,6 +61,7 @@ public class Firebase_DBManager implements Backend {
 
     }
 
+    // Remove single trip from Firebase
     @Override
     public void deleteTrip(String key)
     {

@@ -26,14 +26,9 @@ public class TripSearchActivity extends AppCompatActivity {
 
     Button cancelTrip;
     Backend dataBase = BackendFactory.getBackend();
-    Trip currentTrip = new Trip();
-
-
-
-    SharedPreferences prefs;
-
-
     final String WAIT_FOR_DRIVER = "Your Driver will come Shortly!";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
